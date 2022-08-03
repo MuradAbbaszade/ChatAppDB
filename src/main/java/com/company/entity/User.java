@@ -5,6 +5,7 @@
  */
 package com.company.entity;
 
+import com.company.config.PasswordEncoder;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -31,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
+    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,7 +61,7 @@ public class User implements Serializable {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.password = PasswordEncoder.encodePassword(password);
     }
 
     public Integer getId() {
@@ -91,7 +93,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = PasswordEncoder.encodePassword(password);
     }
 
     @Override

@@ -78,5 +78,14 @@ public class UserDAOImpl implements UserDAO {
         }
         return u;
     }
+    public boolean findByEmail(String email){
+        Query q = em.createNativeQuery("Select * from user where email=:email", User.class);
+        q.setParameter("email", email);
+        List list = q.getResultList();
+        if(list.isEmpty()){
+            return false;
+        }
+        return true;
+    }
 
 }
