@@ -5,7 +5,6 @@
  */
 package com.company.daoImpl;
 
-import com.company.dao.UserDAO;
 import com.company.entity.User;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -13,13 +12,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
+import com.company.dao.UserDAOInter;
 
 /**
  *
  * @author roma-cervice
  */
 @Repository
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UserDAOInter {
 
     @PersistenceContext
     EntityManager em;
@@ -32,21 +32,18 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public boolean insert(User u) {
         em.merge(u);
         return true;
     }
 
     @Override
-    @Transactional
     public int delete(User u) {
         em.remove(em.contains(u) ? u : em.merge(u));
         return u.getId();
     }
 
     @Override
-    @Transactional
     public boolean update(User u) {
         em.merge(u);
         return true;

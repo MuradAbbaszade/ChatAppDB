@@ -1,8 +1,11 @@
 package com.company;
 
 import com.company.config.PasswordEncoder;
+import com.company.dao.UserDAOInter;
 import com.company.daoImpl.UserDAOImpl;
 import com.company.entity.User;
+import com.company.service.UserDAOService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +17,7 @@ import sun.security.util.Password;
 public class ChatAppDbApplication {
 
     @Autowired
-    private UserDAOImpl userDAO;
+    private UserDAOService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(ChatAppDbApplication.class, args);
@@ -25,7 +28,6 @@ public class ChatAppDbApplication {
         CommandLineRunner clr = new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                
             }
 
         };
