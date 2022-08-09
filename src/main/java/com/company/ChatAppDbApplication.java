@@ -1,18 +1,20 @@
 package com.company;
 
-import com.company.config.PasswordEncoder;
-import com.company.dao.UserDAOInter;
 import com.company.daoImpl.UserDAOImpl;
-import com.company.entity.User;
 import com.company.service.UserDAOService;
-import java.util.List;
+import jdk.nashorn.internal.runtime.Context;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import sun.security.util.Password;
-
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
+@ComponentScan
+@Service
 @SpringBootApplication
 public class ChatAppDbApplication {
 
@@ -27,7 +29,8 @@ public class ChatAppDbApplication {
     public CommandLineRunner run() {
         CommandLineRunner clr = new CommandLineRunner() {
             @Override
-            public void run(String... args) throws Exception {
+            public void run(String... args) {
+                
             }
 
         };

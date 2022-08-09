@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import com.company.dao.UserDAOInter;
+import org.springframework.stereotype.Component;
 
 /**
  *
