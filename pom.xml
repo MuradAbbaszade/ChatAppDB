@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.company</groupId>
     <artifactId>ChatAppDB</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>ChatAppDB</name>
     <description>ChatAppDB for Spring Boot</description>
     <properties>

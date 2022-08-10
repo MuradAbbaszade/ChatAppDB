@@ -5,6 +5,7 @@
  */
 package com.company.daoImpl;
 
+import com.company.config.PasswordEncoder;
 import com.company.entity.User;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -65,16 +66,16 @@ public class UserDAOImpl implements UserDAOInter {
 
     @Override
     public User findByEmailAndPassword(String email, String password) {
-        Query q = em.createNativeQuery("Select * from user where email=:email AND password=:password", User.class);
+        Query q = em.createNativeQuery("Select * from user where email=:email", User.class);
         q.setParameter("email", email);
-        q.setParameter("password", password);
-        User u;
-        try {
-            u = (User) q.getResultList().get(0);
-        } catch (Exception e) {
-            u=null;
+        List<User> list = q.getResultList();
+        User user =null;
+        for(User u : list){
+            if(PasswordEncoder.verifyUserPassword(password, u.getPassword())){
+                user =u;
+            }
         }
-        return u;
+        return user;
     }
     public boolean findByEmail(String email){
         Query q = em.createNativeQuery("Select * from user where email=:email", User.class);

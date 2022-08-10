@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.daoImpl.UserDAOImpl;
+import com.company.entity.User;
 import com.company.service.UserDAOService;
 import jdk.nashorn.internal.runtime.Context;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,6 @@ public class ChatAppDbApplication {
         CommandLineRunner clr = new CommandLineRunner() {
             @Override
             public void run(String... args) {
-                
             }
 
         };
