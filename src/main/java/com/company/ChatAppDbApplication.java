@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class ChatAppDbApplication {
 
     @Autowired
-    private UserDAOService userService;
+    private UserDAOImpl userService;
 
     public static void main(String[] args) {
         SpringApplication.run(ChatAppDbApplication.class, args);
@@ -31,6 +31,8 @@ public class ChatAppDbApplication {
         CommandLineRunner clr = new CommandLineRunner() {
             @Override
             public void run(String... args) {
+                boolean a = userService.deleteFriend(17, 34);
+                System.out.println(a);
             }
 
         };

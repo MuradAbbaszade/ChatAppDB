@@ -3,6 +3,7 @@
   <persistence-unit name="com.company_ChatAppDB_jar_0.0.1PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.company.entity.User</class>
+    <class>com.company.entity.Friend</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/chat_app?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

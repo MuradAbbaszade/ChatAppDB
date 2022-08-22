@@ -24,31 +24,48 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 public class UserDAOService {
+
     @Autowired
     UserDAOInter userDAO;
+
     public List<User> getAll() {
         return userDAO.getAll();
     }
-    public boolean insert(User u) {
+
+    public User insert(User u) {
         return userDAO.insert(u);
     }
+
     public int delete(User u) {
         return userDAO.delete(u);
     }
-    public boolean update(User u) {
+
+    public User update(User u) {
         return userDAO.update(u);
     }
+
     public User getById(int id) {
         return userDAO.getById(id);
     }
+
     public List<User> findByName(String name) {
         return userDAO.findByName(name);
     }
+
     public User findByEmailAndPassword(String email, String password) {
         return userDAO.findByEmailAndPassword(email, password);
     }
-    public boolean findByEmail(String email){
+
+    public User findByEmail(String email) {
         return userDAO.findByEmail(email);
     }
-    
+
+    public boolean addFriend(int userId, int friendId) {
+        return userDAO.addFriend(userId, friendId);
+    }
+
+    public boolean deleteFriend(int userId, int friendId) {
+        return userDAO.deleteFriend(userId, friendId);
+    }
+
 }

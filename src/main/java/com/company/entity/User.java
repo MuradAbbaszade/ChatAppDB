@@ -5,9 +5,10 @@
  */
 package com.company.entity;
 
-import com.company.config.PasswordEncoder;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +16,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,7 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
-    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,6 +51,8 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Friend> friendCollection;
 
     public User() {
     }
@@ -61,7 +65,7 @@ public class User implements Serializable {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = PasswordEncoder.encodePassword(password);
+        this.password = password;
     }
 
     public Integer getId() {
@@ -93,7 +97,16 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = PasswordEncoder.encodePassword(password);
+        this.password = password;
+    }
+
+    @XmlTransient
+    public Collection<Friend> getFriendCollection() {
+        return friendCollection;
+    }
+
+    public void setFriendCollection(Collection<Friend> friendCollection) {
+        this.friendCollection = friendCollection;
     }
 
     @Override
@@ -118,7 +131,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.company.entity.User[ id=" + id +" "+name+" "+email+ " ]";
+        return "com.company.entity.User[ id=" + id + " ]";
     }
     
 }

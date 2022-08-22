@@ -12,12 +12,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @author roma-cervice
  */
 public class PasswordEncoder {
+
     private static BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-    
-    public static String encodePassword(String password){
+
+    public static String encodePassword(String password) {
         return bc.encode(password);
     }
-    public static boolean verifyUserPassword(String password,String encodedPassword){
+
+    public static boolean verifyUserPassword(String password, String encodedPassword) {
         return bc.matches(password, encodedPassword);
     }
 }
