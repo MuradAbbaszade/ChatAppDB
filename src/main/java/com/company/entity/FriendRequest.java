@@ -24,12 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author roma-cervice
  */
 @Entity
-@Table(name = "friend")
+@Table(name = "friend_request")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Friend.findAll", query = "SELECT f FROM Friend f")
-    , @NamedQuery(name = "Friend.findById", query = "SELECT f FROM Friend f WHERE f.id = :id")})
-public class Friend implements Serializable {
+    @NamedQuery(name = "FriendRequest.findAll", query = "SELECT f FROM FriendRequest f")
+    , @NamedQuery(name = "FriendRequest.findById", query = "SELECT f FROM FriendRequest f WHERE f.id = :id")})
+public class FriendRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,24 +37,24 @@ public class Friend implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "from_user", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "friend_id", referencedColumnName = "id")
+    private User fromUser;
+    @JoinColumn(name = "to_user", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User friend;
+    private User toUser;
 
-    public Friend() {
+    public FriendRequest() {
     }
 
-    public Friend(Integer id) {
+    public FriendRequest(Integer id) {
         this.id = id;
     }
 
-    public Friend(Integer id, User user, User friend) {
+    public FriendRequest(Integer id,User fromUser,User toUser) {
         this.id = id;
-        this.user = user;
-        this.friend = friend;
+        this.fromUser=fromUser;
+        this.toUser=toUser;
     }
 
     public Integer getId() {
@@ -65,20 +65,20 @@ public class Friend implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getFromUser() {
+        return fromUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
     }
 
-    public User getFriend() {
-        return friend;
+    public User getToUser() {
+        return toUser;
     }
 
-    public void setFriend(User friend) {
-        this.friend = friend;
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
     }
 
     @Override
@@ -90,11 +90,10 @@ public class Friend implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Friend)) {
+        if (!(object instanceof FriendRequest)) {
             return false;
         }
-        Friend other = (Friend) object;
+        FriendRequest other = (FriendRequest) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -103,7 +102,7 @@ public class Friend implements Serializable {
 
     @Override
     public String toString() {
-        return "com.company.entity.Friend[ id=" + id + " ]";
+        return "com.company.entity.FriendRequest[ id=" + id + " ]";
     }
 
 }

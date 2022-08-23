@@ -60,12 +60,4 @@ public class UserDAOService {
         return userDAO.findByEmail(email);
     }
 
-    public boolean addFriend(int userId, int friendId) {
-        return userDAO.addFriend(userId, friendId);
-    }
-
-    public boolean deleteFriend(int userId, int friendId) {
-        return userDAO.deleteFriend(userId, friendId);
-    }
-
 }

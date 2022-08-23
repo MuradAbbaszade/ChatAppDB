@@ -53,6 +53,8 @@ public class User implements Serializable {
     private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Friend> friendCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friend")
+    private Collection<Friend> friendCollection1;
 
     public User() {
     }
@@ -107,6 +109,15 @@ public class User implements Serializable {
 
     public void setFriendCollection(Collection<Friend> friendCollection) {
         this.friendCollection = friendCollection;
+    }
+
+    @XmlTransient
+    public Collection<Friend> getFriendCollection1() {
+        return friendCollection1;
+    }
+
+    public void setFriendCollection1(Collection<Friend> friendCollection1) {
+        this.friendCollection1 = friendCollection1;
     }
 
     @Override

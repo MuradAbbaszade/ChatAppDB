@@ -23,6 +23,4 @@ public interface UserDAOInter{
     public List<User> findByName(String name);
     public User findByEmail(String email);
     public User findByEmailAndPassword(String email,String password);
-    public boolean addFriend(int userId,int friendId);
-    public boolean deleteFriend(int userId,int friendId);
 }
