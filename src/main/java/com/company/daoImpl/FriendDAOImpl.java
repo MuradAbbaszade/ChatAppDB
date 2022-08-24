@@ -8,10 +8,12 @@ package com.company.daoImpl;
 import com.company.dao.FriendDAOInter;
 import com.company.entity.Friend;
 import com.company.entity.FriendRequest;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +30,7 @@ public class FriendDAOImpl implements FriendDAOInter {
     @PersistenceContext
     EntityManager em;
 
+    @Transactional
     @Override
     public boolean sendFriendRequest(int fromUserId, int toUserId) {
         if (fromUserId == toUserId) {
@@ -104,5 +107,12 @@ public class FriendDAOImpl implements FriendDAOInter {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<FriendRequest> getAllRequests() {
+        Query q = em.createNativeQuery("Select * from friend_request",FriendRequest.class);
+        List<FriendRequest> requests = q.getResultList();
+        return requests;
     }
 }

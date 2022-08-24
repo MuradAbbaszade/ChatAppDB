@@ -29,11 +29,6 @@ public class ChatAppDbApplication {
         CommandLineRunner clr = new CommandLineRunner() {
             @Override
             public void run(String... args) {
-                boolean yoxla1 = friendService.sendFriendRequest(35, 17);
-                System.out.println(yoxla1);
-                Integer requestId = friendService.getRequestId(45, 43);
-                 boolean yoxla2 = friendService.acceptFriendRequest(requestId);
-                 System.out.println(yoxla2);
             }
 
         };

@@ -6,6 +6,8 @@
 package com.company.service;
 
 import com.company.daoImpl.FriendDAOImpl;
+import com.company.entity.FriendRequest;
+import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +40,8 @@ public class FriendDAOService {
 
     public boolean isFriend(int fromUserId, int toUserId){
         return friendDAO.isFriend(fromUserId, toUserId);
+    }
+    public List<FriendRequest> getAllRequest(){
+        return friendDAO.getAllRequests();
     }
 }

@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.company.dao;
 
-import com.company.entity.Friend;
 import com.company.entity.User;
 import java.util.List;
-import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author roma-cervice
- */
 public interface UserDAOInter{
     public List<User> getAll();
     public User insert(User u);
