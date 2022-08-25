@@ -26,7 +26,7 @@ public class FriendDAOImpl implements FriendDAOInter {
 
     @Autowired
     UserDAOImpl userDAO;
-    
+
     @PersistenceContext
     EntityManager em;
 
@@ -56,13 +56,16 @@ public class FriendDAOImpl implements FriendDAOInter {
             int requestId = getRequestId(toUserId, fromUserId);
             return acceptFriendRequest(requestId);
         }
-        FriendRequest friendRequest =  new FriendRequest(0,userDAO.getById(fromUserId),userDAO.getById(toUserId));
+        FriendRequest friendRequest = new FriendRequest(0, userDAO.getById(fromUserId), userDAO.getById(toUserId));
         em.merge(friendRequest);
         return true;
     }
+
     @Override
     public boolean acceptFriendRequest(Integer requestId) {
-        if(requestId == null) return false;
+        if (requestId == null) {
+            return false;
+        }
         FriendRequest friendRequest = em.find(FriendRequest.class, requestId);
         if (friendRequest == null) {
             return false;
@@ -72,7 +75,7 @@ public class FriendDAOImpl implements FriendDAOInter {
         if (getRequestId(fromUserId, toUserId) == null) {
             return false;
         }
-        Friend friend  = new Friend(0,userDAO.getById(fromUserId),userDAO.getById(toUserId));
+        Friend friend = new Friend(0, userDAO.getById(fromUserId), userDAO.getById(toUserId));
         em.merge(friend);
         return declineFriendRequest(requestId);
     }
@@ -87,9 +90,12 @@ public class FriendDAOImpl implements FriendDAOInter {
         }
         return requestList.get(0).getId();
     }
+
     @Override
     public boolean declineFriendRequest(Integer requestId) {
-        if(requestId==null) return false;
+        if (requestId == null) {
+            return false;
+        }
         FriendRequest friendRequest = em.find(FriendRequest.class, requestId);
         if (friendRequest == null) {
             return false;
@@ -111,8 +117,40 @@ public class FriendDAOImpl implements FriendDAOInter {
 
     @Override
     public List<FriendRequest> getAllRequests() {
-        Query q = em.createNativeQuery("Select * from friend_request",FriendRequest.class);
+        Query q = em.createNativeQuery("Select * from friend_request", FriendRequest.class);
         List<FriendRequest> requests = q.getResultList();
         return requests;
+    }
+
+    @Override
+    public List<Friend> getAllFriends() {
+        Query q = em.createNativeQuery("Select * from friend", Friend.class);
+        List<Friend> friends = q.getResultList();
+        return friends;
+    }
+
+    @Override
+    public boolean deleteFriend(Integer id) {
+        if (id == null) {
+            return false;
+        }
+        Friend friend = em.find(Friend.class, id);
+        if (friend == null) {
+            return false;
+        }
+        em.remove(em.contains(friend) ? friend : em.merge(friend));
+        return true;
+    }
+
+    @Override
+    public Integer getFriendsId(int userId, int friendId) {
+        Query q = em.createNativeQuery("select * from friend where user_id=:userId AND friend_id=:friendId", Friend.class);
+        q.setParameter("userId", userId);
+        q.setParameter("friendId", friendId);
+        List<Friend> friends = q.getResultList();
+        if (friends.size() == 0) {
+            return null;
+        }
+        return friends.get(0).getId();
     }
 }
